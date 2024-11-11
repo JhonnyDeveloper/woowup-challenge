@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from sparkpost import SparkPost
 from api.models.email import Email
-from base_email_strategy import BaseEmailStrategy
+from core.strategies.base_email_strategy import BaseEmailStrategy
 
 
 @dataclass

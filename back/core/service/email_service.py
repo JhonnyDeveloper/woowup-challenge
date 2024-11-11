@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from api.models.email import Email
-from strategies.base_email_strategy import BaseEmailStrategy
+from core.strategies.base_email_strategy import BaseEmailStrategy
 
 
 @dataclass

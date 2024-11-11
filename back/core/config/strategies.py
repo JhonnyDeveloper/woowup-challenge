@@ -1,9 +1,9 @@
 from fastapi import Depends
 from core.config.clients import dep_sparkpost_client, dep_twilio_client
 from core.config.environment import dep_env
-from strategies.base_email_strategy import BaseEmailStrategy
-from strategies.sparkpost_strategy import SparkPostStrategy
-from strategies.twilio_strategy import TwilioStrategy
+from core.strategies.base_email_strategy import BaseEmailStrategy
+from core.strategies.sparkpost_strategy import SparkPostStrategy
+from core.strategies.twilio_strategy import TwilioStrategy
 
 
 def dep_sparkpost_strategy(

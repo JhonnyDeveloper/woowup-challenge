@@ -10,7 +10,7 @@ def dep_sparkpost_client(configuration: dict = Depends(dep_env)) -> SparkPost:
     )
 
 
-def dep_twilio_client(configuration: dict = Depends(dep_env)) -> SparkPost:
+def dep_twilio_client(configuration: dict = Depends(dep_env)) -> SendGridAPIClient:
     return SendGridAPIClient(
         api_key=configuration["TWILIO"]["API_KEY"]
     )

@@ -1,8 +1,8 @@
 from fastapi import Depends
 from fastapi.routing import APIRouter
 from core.service.email_service import EmailService
-from core.config.strategies import dep_email_service
-from models.email import Email
+from core.config.services import dep_email_service
+from api.models.email import Email
 
 email_router = APIRouter()
 

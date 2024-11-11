@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from api.models.email import Email
-from base_email_strategy import BaseEmailStrategy
+from core.strategies.base_email_strategy import BaseEmailStrategy
 
 
 @dataclass

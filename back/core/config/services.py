@@ -1,7 +1,7 @@
 from fastapi import Depends
 from core.config.strategies import dep_email_strategies
 from core.strategies.base_email_strategy import BaseEmailStrategy
-from service.email_service import EmailService
+from core.service.email_service import EmailService
 
 
 def dep_email_service(
