@@ -3,22 +3,19 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from api.models.email import Email
 from base_email_strategy import BaseEmailStrategy
-from core.models.twilio_config import TwilioConfig
 
 
 @dataclass
 class TwilioStrategy(BaseEmailStrategy):
 
-    _configuration: TwilioConfig
+    _client: SendGridAPIClient
 
     def send(self, email: Email):
-        sg = SendGridAPIClient(api_key=self._configuration._API_KEY)
-
         message = Mail(
-            from_email=self._configuration._FROM_EMAIL,
+            from_email=self._configuration["FROM_EMAIL"],
             to_emails=email.recipients,
             subject=email.subject,
             html_content=email.content
         )
 
-        response = sg.send(message)
+        response = self._client.send(message)
