@@ -4,9 +4,9 @@ from core.strategies.base_email_strategy import BaseEmailStrategy
 
 
 @dataclass
-class EmailService:
+class EmailService():
 
-    _email_strategies = list[BaseEmailStrategy]
+    _email_strategies: list[BaseEmailStrategy]
 
     def send(self, email: Email):
         for strategy in self._email_strategies:

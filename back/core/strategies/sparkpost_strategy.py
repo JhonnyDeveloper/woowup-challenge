@@ -17,3 +17,5 @@ class SparkPostStrategy(BaseEmailStrategy):
             recipients=email.recipients,
             html=email.content,
             subject=email.subject)
+        
+        print(response)

@@ -1,9 +1,9 @@
 from fastapi import Depends
-from core.config.clients import dep_sparkpost_client, dep_twilio_client
+from core.config.clients import dep_sparkpost_client, dep_mailjet_client
 from core.config.environment import dep_env
 from core.strategies.base_email_strategy import BaseEmailStrategy
 from core.strategies.sparkpost_strategy import SparkPostStrategy
-from core.strategies.twilio_strategy import TwilioStrategy
+from core.strategies.mailjet_strategy import MailJetStrategy
 
 
 def dep_sparkpost_strategy(
@@ -16,21 +16,21 @@ def dep_sparkpost_strategy(
     )
 
 
-def dep_twilio_strategy(
+def dep_mailjet_strategy(
     configuration: dict = Depends(dep_env),
-    twilio: dict = Depends(dep_twilio_client)
-) -> TwilioStrategy:
-    return TwilioStrategy(
-        _configuration=configuration["TWILIO"],
-        _client=twilio
+    mailjet: dict = Depends(dep_mailjet_client)
+) -> MailJetStrategy:
+    return MailJetStrategy(
+        _configuration=configuration["MAILJET"],
+        _client=mailjet
     )
 
 
 def dep_email_strategies(
     sparkpost: SparkPostStrategy = Depends(dep_sparkpost_strategy),
-    twilio: TwilioStrategy = Depends(dep_twilio_strategy)
+    mailjet: MailJetStrategy = Depends(dep_mailjet_strategy)
 ) -> list[BaseEmailStrategy]:
     return [
         sparkpost,
-        twilio
+        mailjet
     ]

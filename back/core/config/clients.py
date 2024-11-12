@@ -1,6 +1,6 @@
 from fastapi import Depends
 from sparkpost import SparkPost
-from sendgrid import SendGridAPIClient
+from mailjet_rest import Client
 from core.config.environment import dep_env
 
 
@@ -10,7 +10,10 @@ def dep_sparkpost_client(configuration: dict = Depends(dep_env)) -> SparkPost:
     )
 
 
-def dep_twilio_client(configuration: dict = Depends(dep_env)) -> SendGridAPIClient:
-    return SendGridAPIClient(
-        api_key=configuration["TWILIO"]["API_KEY"]
+def dep_mailjet_client(configuration: dict = Depends(dep_env)) -> Client:
+    return Client(
+        auth=(
+            configuration["MAILJET"]["API_KEY"],
+            configuration["MAILJET"]["SECRET_KEY"]
+        )
     )
