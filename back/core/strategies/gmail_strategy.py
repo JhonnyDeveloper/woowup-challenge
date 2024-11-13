@@ -11,6 +11,25 @@ class GmailStrategy(BaseEmailStrategy):
 
     _client: SMTP
 
+    def send(self, email: Email):
+        self._client.starttls()
+        self._client.login(
+            user=self._configuration["SENDER_EMAIL"], password=self._configuration["PASSWORD"])
+        return self._client.sendmail(**self.get_email(email))
+
+    def get_email(self, email: Email):
+        message = MIMEMultipart()
+        message["From"] = self._configuration["SENDER_EMAIL"]
+        message["To"] = ", ".join(email.recipients)
+        message["Subject"] = email.subject
+        message.attach(self.get_message(email.content))
+
+        return {
+            "from_addr": self._configuration["SENDER_EMAIL"],
+            "to_addrs": email.recipients,
+            "msg": message.as_string()
+        }
+
     def get_message(self, content):
         return MIMEText(f"""
             <!DOCTYPE html>
@@ -19,16 +38,3 @@ class GmailStrategy(BaseEmailStrategy):
                 </body>
             </html>
             """, "html")
-
-    def send(self, email: Email):
-        message = MIMEMultipart()
-        message["From"] = self._configuration["SENDER_EMAIL"]
-        message["To"] = ", ".join(email.recipients)
-        message["Subject"] = email.subject
-        message.attach(self.get_message(email.content))
-
-        self._client.starttls()
-        self._client.login(
-            user=self._configuration["SENDER_EMAIL"], password=self._configuration["PASSWORD"])
-        return self._client.sendmail(
-            self._configuration["SENDER_EMAIL"], email.recipients, message.as_string())

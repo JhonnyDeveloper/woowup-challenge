@@ -9,5 +9,9 @@ class BaseEmailStrategy(ABC):
     _configuration: dict
 
     @abstractmethod
-    def send(email: Email):
+    def send(self, email: Email):
+        raise NotImplementedError()
+
+    @abstractmethod
+    def get_email(self, email: Email):
         raise NotImplementedError()
