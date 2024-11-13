@@ -5,18 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Woowup Challenge</title>
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
     <link rel="stylesheet" href="css/email.css">
 </head>
 
 <body>
     <form id="emailForm" class="form form-column" action="#">
         <div class="form-column header">
-            <h2>Nuevo Correo</h2>
+            <h2>New Email</h2>
         </div>
         <div class="form-column">
-            <input type="text" class="form-input" name="subject" placeholder="Asunto">
-            <input type="text" class="form-input" name="recipients" placeholder="Destinatarios">
+            <input type="text" class="form-input" name="subject" placeholder="Subject">
+            <input type="text" name="recipients" id="recipients" placeholder="Recipients">
         </div>
         <div class="form-column">
         </div>
@@ -25,11 +27,13 @@
             </div>
         </div>
         <div class="form-row footer">
-            <button type="submit" class="form-button">Enviar</button>
+            <button type="submit" class="form-button">Send</button>
         </div>
 
     </form>
 
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/joi-browser@13.4.0/dist/joi-browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script type="module" src="js/index.js"></script>

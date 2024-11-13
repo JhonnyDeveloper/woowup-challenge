@@ -22,7 +22,7 @@ export class HttpClient {
             }
         );
         if (!response.ok) {
-            throw new Error('Error al obtener los datos');
+            throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
         }
         return await response.json();
     }
