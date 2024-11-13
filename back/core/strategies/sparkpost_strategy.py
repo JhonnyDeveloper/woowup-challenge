@@ -11,11 +11,11 @@ class SparkPostStrategy(BaseEmailStrategy):
 
     def send(self, email: Email):
 
-        response = self._client.transmissions.send(
+        return self._client.transmissions.send(
             use_sandbox=self._configuration["IS_SANDBOX"],
             from_email=self._configuration["FROM_EMAIL"],
             recipients=email.recipients,
             html=email.content,
             subject=email.subject)
         
-        print(response)
+        

@@ -8,14 +8,14 @@ export default class EmailComponent extends BaseComponent {
         recipients: Joi.array().items(Joi.string().email()).min(1).required(),
         content: Joi.string().required()
     });
-    #Subject
+    #Content
     #Recipients
 
     constructor(notify, emailService) {
         super(notify)
 
         this.#EmailService = emailService;
-        this.createSubject();
+        this.createContent();
         this.createRecipients();
         this.start()
     }
@@ -27,8 +27,8 @@ export default class EmailComponent extends BaseComponent {
         };
     }
 
-    createSubject() {
-        this.#Subject = new Quill('#content', {
+    createContent() {
+        this.#Content = new Quill('#content', {
             theme: 'snow',
             placeholder: 'Content',
         });
@@ -50,20 +50,36 @@ export default class EmailComponent extends BaseComponent {
 
         const form = Object.fromEntries(new FormData(event.target).entries());
         form.recipients = JSON.parse(form.recipients || "[]").map((recipient) => recipient.value)
-        form.content = this.#Subject.root.innerHTML === "<p><br></p>" ? "" : this.#Subject.root.innerHTML;
+        form.content = this.#Content.root.innerHTML === "<p><br></p>" ? "" : this.#Content.root.innerHTML;
         const { error } = this.#EmailSchama.validate(form);
 
-        if (error) {
-            this.showValidationErrors(error);
+        if (!error) {
+            this.#EmailService.send(form).then((result) => {
+                this.notify.success({
+                    message: "Mail sent",
+                    duration: 9000
+                })
+                this.cleanForm();
+            }).catch((error) => {
+                this.notify.error({
+                    message: "The email was not sent, try again please",
+                    duration: 9000
+                })
+            })
             return;
         }
 
-        try {
-            await this.#EmailService.send(form)
-        } catch (error) {
-
-        }
+        this.showValidationErrors(error);
     }
+
+    cleanForm() {
+        document.getElementById("emailForm").reset();
+        this.#Recipients.removeAllTags()
+        this.#Content.setContents([
+            { insert: '' }
+        ])
+    }
+
 }
 
 

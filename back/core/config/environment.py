@@ -13,5 +13,11 @@ def dep_env():
             "SECRET_KEY": getenv("MAILJET_SECRET_KEY", ""),
             "FROM_EMAIL": getenv("MAILJET_FROM_EMAIL", ""),
             "FROM_NAME": getenv("MAILJET_FROM_NAME", "")
+        },
+        "GMAIL": {
+            "SMTP_SERVER": getenv("GMAIL_SMTP_SERVER", ""),
+            "SMTP_PORT": getenv("GMAIL_SMTP_PORT", ""),
+            "SENDER_EMAIL": getenv("GMAIL_SENDER_EMAIL", ""),
+            "PASSWORD": getenv("GMAIL_PASSWORD", ""),
         }
     }

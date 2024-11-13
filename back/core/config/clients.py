@@ -1,3 +1,4 @@
+from smtplib import SMTP
 from fastapi import Depends
 from sparkpost import SparkPost
 from mailjet_rest import Client
@@ -17,3 +18,7 @@ def dep_mailjet_client(configuration: dict = Depends(dep_env)) -> Client:
             configuration["MAILJET"]["SECRET_KEY"]
         )
     )
+
+
+def dep_gmail_client(configuration: dict = Depends(dep_env)) -> SMTP:
+    return SMTP(configuration["GMAIL"]["SMTP_SERVER"], configuration["GMAIL"]["SMTP_PORT"])

@@ -19,4 +19,8 @@ class MailJetStrategy(BaseEmailStrategy):
             'Recipients': recipients
         }
         result = self._client.send.create(data=data)
-        print(result)
+
+        if not result.ok:
+            raise Exception(result.reason)
+
+        return result

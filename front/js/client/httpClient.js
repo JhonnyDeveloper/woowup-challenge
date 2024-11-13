@@ -22,7 +22,11 @@ export class HttpClient {
             }
         );
         if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
+            throw {
+                status: response.status,
+                message: response.statusText
+            }
+
         }
         return await response.json();
     }
