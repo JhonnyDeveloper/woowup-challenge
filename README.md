@@ -1,3 +1,5 @@
+# woowup-challenge
+
 # WOOWUP Challenge
 
 ## Contenido
@@ -32,6 +34,8 @@
 ### Ejecucion
 
 ## Frontend
+
+python -m http.server 8001
 
 ### Pre-requisitos
 
