@@ -4,14 +4,20 @@ from unittest.mock import Mock
 
 @pytest.fixture
 def gmail_strategy():
-    return Mock()
+    mock = Mock()
+    mock._client = Mock()
+    return mock
 
 
 @pytest.fixture
 def mailjet_strategy():
-    return Mock()
+    mock = Mock()
+    mock._client = Mock()
+    return mock
 
 
 @pytest.fixture
 def sparkpost_strategy():
-    return Mock()
+    mock = Mock()
+    mock._client = Mock()
+    return mock
