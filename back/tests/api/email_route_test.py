@@ -4,13 +4,13 @@ from fastapi.testclient import TestClient
 
 from core.service.email_service import EmailService
 
-client = TestClient(app)
-
 
 def test_send_email_success(email_model):
     mock_email_service = MagicMock(EmailService)
-
     mock_email_service.send.return_value = True
+
+    app.dependency_overrides[EmailService] = lambda: mock_email_service
+    client = TestClient(app)
 
     response = client.post(
         "/email",
@@ -18,6 +18,7 @@ def test_send_email_success(email_model):
     )
 
     mock_email_service.reset_mock()
+    app.dependency_overrides = {}
 
     assert response.status_code == 200
     assert response.json() == {}
