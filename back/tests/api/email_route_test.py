@@ -1,35 +1,38 @@
 from api.main import app
-from unittest.mock import patch
+from unittest.mock import Mock
 from fastapi.testclient import TestClient
+
+from core.config.services import dep_email_service
 
 client = TestClient(app)
 
 
-def test_send_email_success(mailjet_strategy, gmail_strategy, sparkpost_strategy, email_model):
-    gmail_strategy.send.return_value = False
-    sparkpost_strategy.send.return_value = False
-    mailjet_strategy.send.return_value = True
+def test_send_email_success(email_model):
 
-    with patch("api.routes.email.EmailService", autospec=True) as mock_email_service:
-        mock_service_instance = mock_email_service.return_value
-        mock_service_instance._email_strategies = [
-            mailjet_strategy, gmail_strategy, sparkpost_strategy]
+    mock = Mock()
+    mock.send.return_value = True
+    app.dependency_overrides[dep_email_service] = lambda: mock
 
-        with patch("api.routes.email.EmailService.send", return_value=False):
-            response = client.post(
-                "/email",
-                json=email_model.model_dump()
-            )
+    response = client.post(
+        "/email",
+        json=email_model.model_dump()
+    )
 
-            assert response.status_code == 200
-            assert response.json() == {}
+    app.dependency_overrides.clear()
+
+    assert response.status_code == 200
 
 
-# def test_send_email_failure(email_model):
-#     with patch("api.routes.email.EmailService.send", return_value=False) as mock_service:
-#         response = client.post(
-#             "/email",
-#             json=email_model.model_dump()
-#         )
+def test_send_email_failure(email_model):
+    mock = Mock()
+    mock.send.return_value = False
+    app.dependency_overrides[dep_email_service] = lambda: mock
 
-#         assert response.status_code == 500
+    response = client.post(
+        "/email",
+        json=email_model.model_dump()
+    )
+
+    app.dependency_overrides.clear()
+
+    assert response.status_code == 500
