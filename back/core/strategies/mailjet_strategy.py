@@ -10,12 +10,14 @@ class MailJetStrategy(BaseEmailStrategy):
     _client: Client
 
     def send(self, email: Email):
-        result = self._client.send.create(data=self.get_email(email))
+        try:
+            result = self._client.send.create(data=self.get_email(email))
 
-        if not result.ok:
-            raise Exception(result.reason)
+            return result.ok
 
-        return result
+        except Exception as e:
+            print(e)
+            return False
 
     def get_email(self, email: Email):
         return {

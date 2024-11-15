@@ -12,10 +12,15 @@ class GmailStrategy(BaseEmailStrategy):
     _client: SMTP
 
     def send(self, email: Email):
-        self._client.starttls()
-        self._client.login(
-            user=self._configuration["SENDER_EMAIL"], password=self._configuration["PASSWORD"])
-        return self._client.sendmail(**self.get_email(email))
+        try:
+            self._client.starttls()
+            self._client.login(
+                user=self._configuration["SENDER_EMAIL"], password=self._configuration["PASSWORD"])
+            self._client.sendmail(**self.get_email(email))
+            return True
+        except Exception as e:
+            print(e)
+            return False
 
     def get_email(self, email: Email):
         message = MIMEMultipart()

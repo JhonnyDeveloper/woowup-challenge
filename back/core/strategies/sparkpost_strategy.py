@@ -10,7 +10,11 @@ class SparkPostStrategy(BaseEmailStrategy):
     _client: SparkPost
 
     def send(self, email: Email):
-        return self._client.transmissions.send(**self.get_email(email))
+        try:
+            self._client.transmissions.send(**self.get_email(email))
+            return True
+        except Exception as e:
+            return False
 
     def get_email(self, email: Email):
         return {

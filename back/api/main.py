@@ -6,8 +6,8 @@ app = FastAPI()
 app.include_router(email_router)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Permitir solo los orígenes en la lista
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Métodos permitidos
-    allow_headers=["*", ""],  # Encabezados permitidos
+    allow_methods=["*"],
+    allow_headers=["*", ""],
 )
