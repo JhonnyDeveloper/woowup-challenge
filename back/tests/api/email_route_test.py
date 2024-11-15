@@ -5,16 +5,16 @@ from unittest.mock import Mock, patch
 client = TestClient(app)
 
 
-# def test_send_email_success(email_model):
-#     with patch("api.routes.email.EmailService.send", return_value=True) as mock_service:
+def test_send_email_success(email_model):
+    with patch("api.routes.email.EmailService.send", return_value=True) as mock_service:
 
-#         response = client.post(
-#             "/email",
-#             json=email_model.model_dump()
-#         )
+        response = client.post(
+            "/email",
+            json=email_model.model_dump()
+        )
 
-#         assert response.status_code == 200
-#         assert response.json() == {}
+        assert response.status_code == 200
+        assert response.json() == {}
 
 
 # def test_send_email_failure(email_model):
