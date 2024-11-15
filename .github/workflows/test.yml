@@ -30,4 +30,4 @@ jobs:
       - name: Run tests with pytest
         run: |
           cd back
-          pytest
+          pytest -v -s
