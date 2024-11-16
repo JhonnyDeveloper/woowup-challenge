@@ -41,7 +41,7 @@ Use RailWay para desplegar la aplicacion.
   - **NOTA**: actualmente el correo no se envia con este servidor debido a que cuenta que configure fue bloqueada por razones que desconozco.
 - MailJet: SDK que permite enviar y recibir correos usando  los servicios de [MailJet](https://dev.mailjet.com) 
   - **NOTA**: actualmente el correo no se envia con este servidor debido a que cuenta que configure fue bloqueada por razones que desconozco.
-- SMTP Google: se usa SMTPlib para configurar el envio del correo electronico  
+- SMTP Google: se usa SMTPlib para configurar el envio del correo electrónico usando Google. 
 
 ### Instalacion
 
