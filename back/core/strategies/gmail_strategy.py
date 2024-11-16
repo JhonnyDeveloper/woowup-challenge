@@ -4,6 +4,7 @@ from smtplib import SMTP
 from dataclasses import dataclass
 from api.models.email import Email
 from core.strategies.base_email_strategy import BaseEmailStrategy
+from core.config.logger import logger
 
 
 @dataclass
@@ -19,7 +20,7 @@ class GmailStrategy(BaseEmailStrategy):
             self._client.sendmail(**self.get_email(email))
             return True
         except Exception as e:
-            print(e)
+            logger.error(e)
             return False
 
     def get_email(self, email: Email):
@@ -29,11 +30,14 @@ class GmailStrategy(BaseEmailStrategy):
         message["Subject"] = email.subject
         message.attach(self.get_message(email.content))
 
-        return {
+        result = {
             "from_addr": self._configuration["SENDER_EMAIL"],
             "to_addrs": email.recipients,
             "msg": message.as_string()
         }
+        logger.info(f"{self.__class__.__name__} Email Message: {result}")
+
+        return result
 
     def get_message(self, content):
         return MIMEText(f"""
