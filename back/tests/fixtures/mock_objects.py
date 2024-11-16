@@ -8,7 +8,7 @@ def email_model():
     return Email(
         content="emailt test",
         recipients=["test@test.com", "test2@test.com"],
-        subject="TEST"
+        subject="TESTING"
     )
 
 
