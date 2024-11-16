@@ -37,7 +37,7 @@ Use RailWay para desplegar la aplicacion.
 ### Librerias
 
 - FastAPI: use esta libreria porque me permite crear, configurar(inyeccion de dependencias, modelos, rutas) y documentar rapidamente un API. Tengo experiencia trabajando con esta de 6 años aprox.
-- Sparkpost: SDK que permite enviar y recibir correos usando  los servicios de [SparkPost] (https://developers.sparkpost.com) 
+- Sparkpost: SDK que permite enviar y recibir correos usando  los servicios de [SparkPost](https://developers.sparkpost.com) 
   - **NOTA**: actualmente el correo no se envia con este servidor debido a que cuenta que configure fue bloqueada por razones que desconozco.
 - MailJet: SDK que permite enviar y recibir correos usando  los servicios de [MailJet](https://dev.mailjet.com) 
   - **NOTA**: actualmente el correo no se envia con este servidor debido a que cuenta que configure fue bloqueada por razones que desconozco.
