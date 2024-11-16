@@ -22,6 +22,8 @@
 
 ## Demo
 
+Use RailWay para desplegar la aplicacion.
+
 - [Frontend](https://gregarious-solace-production.up.railway.app) 
 - [API](https://woowup-challenge-production.up.railway.app)
 - [API DOCS](https://woowup-challenge-production.up.railway.app/docs)
